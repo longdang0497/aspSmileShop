@@ -83,7 +83,7 @@ namespace SmileShop.Database
         /// </summary>
         /// <param name="id">id màu muốn tìm</param>
         /// <returns></returns>
-        public static DataTable Thongtin_mau_ByTuKhoa(int id)
+        public static DataTable Thongtin_mau_ByID(int id)
         {
             OleDbCommand cmd = new OleDbCommand("thongtin_mau_by_id");
             cmd.CommandType = CommandType.StoredProcedure;

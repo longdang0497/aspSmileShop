@@ -9,13 +9,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class DMMau : System.Web.UI.Page
+public partial class DMChatLieu : System.Web.UI.Page
 {
     string connString = ConfigurationManager.AppSettings["ConnectionString"];
     protected void Page_Load(object sender, EventArgs e)
     {
-        SmileShop.Database.SqlDatabase.ConnectionString = connString;
         btnSearch.Text = "Search by ID";
+        SmileShop.Database.SqlDatabase.ConnectionString = connString;
         if (!IsPostBack)
             ShowData();
     }
@@ -26,10 +26,10 @@ public partial class DMMau : System.Web.UI.Page
         {
             DataTable dt = new DataTable();
 
-            dt = SmileShop.Database.Mau.Thongtin_Mau();
+            dt = SmileShop.Database.ChatLieu.Thongtin_ChatLieu();
 
-            gvMau.DataSource = dt;
-            gvMau.DataBind();
+            gvChatLieu.DataSource = dt;
+            gvChatLieu.DataBind();
         }
         catch (SqlException e)
         {
@@ -39,18 +39,18 @@ public partial class DMMau : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        string str = tbTenMau.Text;
+        string str = tbTenChatLieu.Text;
         if (str == "") lbError.Text = "Bạn chưa nhập dữ liệu để tìm.";
         else
         {
             try
             {
-                gvMau.DataSource = null;
+                gvChatLieu.DataSource = null;
                 DataTable dt = new DataTable();
-                dt = SmileShop.Database.Mau.Thongtin_mau_ByID(Convert.ToInt32(str));
+                dt = SmileShop.Database.ChatLieu.Thongtin_ChatLieu_ByID(Convert.ToInt32(str));
                 if (dt.Rows.Count == 0) lbError.Text = "Not Found.";
-                gvMau.DataSource = dt;
-                gvMau.DataBind();
+                gvChatLieu.DataSource = dt;
+                gvChatLieu.DataBind();
             }
             catch (SqlException ex)
             {
@@ -62,8 +62,8 @@ public partial class DMMau : System.Web.UI.Page
 
     public void Clear()
     {
-        hfMauID.Value = "";
-        tbTenMau.Text = "";
+        hfChatLieuID.Value = "";
+        tbTenChatLieu.Text = "";
         lbSuccess.Text = lbError.Text = "";
         btnSave.Text = "Save";
     }
@@ -74,9 +74,9 @@ public partial class DMMau : System.Web.UI.Page
         try
         {
             if (btnSave.Text == "Save")
-                Mau.Mau_Insert(tbTenMau.Text, 0);
+                ChatLieu.ChatLieu_Insert(tbTenChatLieu.Text, 0);
             else
-                Mau.Mau_Update(Convert.ToInt32(hfMauID.Value), tbTenMau.Text);
+                ChatLieu.ChatLieu_Update(Convert.ToInt32(hfChatLieuID.Value), tbTenChatLieu.Text);
             res = true;
             Clear();
         }
@@ -109,7 +109,7 @@ public partial class DMMau : System.Web.UI.Page
         bool res = false;
         try
         {
-            Mau.Mau_Delete(id);
+            ChatLieu.ChatLieu_Delete(id);
             res = true;
             Clear();
         }
@@ -128,8 +128,8 @@ public partial class DMMau : System.Web.UI.Page
     protected void btnEdit_Click(object sender, EventArgs e)
     {
         string[] a = (sender as LinkButton).CommandArgument.ToString().Split(',');
-        hfMauID.Value = a[0];
-        tbTenMau.Text = a[1];
+        hfChatLieuID.Value = a[0];
+        tbTenChatLieu.Text = a[1];
         btnSave.Text = "Update";
     }
 }
