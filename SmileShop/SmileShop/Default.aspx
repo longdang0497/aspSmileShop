@@ -5,7 +5,7 @@
         <ul class="dm-list">
             <li><a href="/DMSize.aspx">Danh mục Size</a></li>
             <li><a href="#">Danh mục Chất liệu</a></li>
-            <li><a href="#">Danh mục Màu</a></li>
+            <li><a href="/DMMau.aspx">Danh mục Màu</a></li>
             <li><a href="#">Danh mục Sản phẩm</a></li>
         </ul>
     </div>

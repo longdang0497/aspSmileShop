@@ -33,7 +33,7 @@ namespace SmileShop.Database
         /// </summary>
         /// <param name="tensize"></param>
         /// <param name="ret"></param>
-        public static void Size_Insert(string tensize, int ret)
+        public static void Size_Insert(string tensize, int ret = 0)
         {
             OleDbCommand cmd = new OleDbCommand("size_insert");
             cmd.CommandType = CommandType.StoredProcedure;

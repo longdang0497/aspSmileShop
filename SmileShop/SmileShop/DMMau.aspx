@@ -1,17 +1,17 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" AutoEventWireup="true" CodeFile="DMSize.aspx.cs" Inherits="DMSize" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" AutoEventWireup="true" CodeFile="DMMau.aspx.cs" Inherits="DMMau" %>
 
-<asp:Content ID="ctSize" ContentPlaceHolderID="phHome" Runat="Server">
+<asp:Content ID="ctMau" ContentPlaceHolderID="phHome" Runat="Server">
     <a href="/">Quay lại</a>
-    <h1>DANH MỤC SIZE</h1>
+    <h1>DANH MỤC MÀU</h1>
     <div>
-        <asp:HiddenField ID="hfSizeID" runat="server" />
+        <asp:HiddenField ID="hfMauID" runat="server" />
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="lbTenSize" runat="server" Text="Tên Size"></asp:Label>
+                    <asp:Label ID="lbTenMau" runat="server" Text="Tên Màu"></asp:Label>
                 </td>
                 <td colspan="2">
-                    <asp:TextBox ID="tbTenSize" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="tbTenMau" runat="server"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -37,19 +37,17 @@
         </table>
     </div>
     <br />
-    <asp:GridView ID="gvSize" runat="server" AutoGenerateColumns="False" DataKeyNames="SizeID" >
+    <asp:GridView ID="gvMau" runat="server" AutoGenerateColumns="False" DataKeyNames="MauID" >
         <Columns>
-            <asp:BoundField DataField="SizeID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="SizeID"/>
-            <asp:BoundField DataField="TenSize" HeaderText="Tên Size" SortExpression="TenSize"/>
+            <asp:BoundField DataField="MauID" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="MauID"/>
+            <asp:BoundField DataField="TenMau" HeaderText="Tên Màu" SortExpression="TenMau"/>
             <asp:TemplateField>
                 <ItemTemplate>
-                    <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("SizeID") %>' OnClick="btnDelete_Click" >Delete</asp:LinkButton>
-                    <asp:LinkButton ID="btnEdit" runat="server" CommandArgument='<%# Eval("SizeID") + "," + Eval("TenSize") %>' OnClick="btnEdit_Click">Edit</asp:LinkButton>
+                    <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("MauID") %>' OnClick="btnDelete_Click" >Delete</asp:LinkButton>
+                    <asp:LinkButton ID="btnEdit" runat="server" CommandArgument='<%# Eval("MauID") + "," + Eval("TenMau") %>' OnClick="btnEdit_Click">Edit</asp:LinkButton>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
     </asp:GridView>
-    
 </asp:Content>
-
 
