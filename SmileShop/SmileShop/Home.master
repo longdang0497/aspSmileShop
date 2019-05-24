@@ -11,7 +11,7 @@
     <form id="frmHome" runat="server">
         <!-- Header -->
         <div class="header">
-            <h2 style="height: 56px">SMILE SHOP</h2>
+            <h2 style="height: 5rem;">SMILE SHOP</h2>
         </div>
         <!-- End Header -->
 
@@ -20,7 +20,14 @@
             
         <!-- Footer -->
         <div class="footer">
-            <h4>footer</h4>
+            <h2 style="text-align:center; padding-top: 0.8rem;">NHÓM 12</h2>
+            <div id="footer-list">                
+                <ul>
+                    <li>ĐẶNG HOÀNG LONG - 15520438</li>
+                    <li>TRẦN MINH HOÀNG LONG - 15520448</li>
+                    <li>PHẠM NHẬT PHI - 15520613</li>
+                </ul>
+            </div>
         </div>
         <!-- End Footer -->
     </form>

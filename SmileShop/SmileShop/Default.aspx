@@ -2,12 +2,14 @@
 
 <asp:Content ID="ctDefault" ContentPlaceHolderID="phHome" Runat="Server">
     <div class="main-content">
-        <ul class="dm-list">
-            <li><a href="/DMSize.aspx">Danh mục Size</a></li>
-            <li><a href="/DMChatLieu.aspx">Danh mục Chất liệu</a></li>
-            <li><a href="/DMMau.aspx">Danh mục Màu</a></li>
-            <li><a href="#">Danh mục Sản phẩm</a></li>
-        </ul>
+        <div class="segment">
+            <ul>
+                <li><a href="/DMSize.aspx" style="color:white;">Danh mục Size</a></li>
+                <li><a href="/DMChatLieu.aspx" style="color:white;">Danh mục Chất liệu</a></li>
+                <li><a href="/DMMau.aspx" style="color:white;">Danh mục Màu</a></li>
+                <li><a href="#" style="color:white;">Danh mục Sản phẩm</a></li>
+            </ul>
+        </div>
     </div>
 </asp:Content>
 
