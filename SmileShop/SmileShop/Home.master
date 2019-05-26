@@ -5,7 +5,7 @@
 <html>
 <head runat="server">
     <title>SMILE Shop</title>
-    <link href="assets/Main.css" rel="stylesheet" />
+    <link href="assets/Main.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
 </head>
 <body>
     <form id="frmHome" runat="server">

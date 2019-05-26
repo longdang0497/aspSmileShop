@@ -40,13 +40,15 @@
 
 .lb {
     font-weight: bold;
-    font-family: Georgia;
+    font-family: Cambria;
     font-size: 1.2rem;
+    width: 50%;
+    padding-right: 1.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .lb-success {
     font-weight: bold;
-    font-family: Georgia;
     font-size: 1.2rem;
     background: green;
     border-radius: 0.5rem;
@@ -55,7 +57,6 @@
 
 .lb-error {
     font-weight: bold;
-    font-family: Georgia;
     font-size: 1.2rem;
     background: red;
     color: white !important;
@@ -63,39 +64,63 @@
 }
 
 .tb {
-    width: 90%;
-    font-family: Georgia;
+    width: 30rem;    
 }
 
 .btn {
-    background: #5badff;
+    font-family: Cambria;
     padding: 0.8rem;
-    color: white;
-    width: 2rem;
+    color: black;
+    width: 4rem;
     height: 0.8rem;
     border-radius: 0.5rem;
+    border: solid 0.15rem !important;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,0.14);
+}
+
+.btn:hover {
+    background: black;
+    color: white;
+    font-weight: bold;
 }
 
 .btnAction {
-    background: #5badff;
+    font-family: Cambria;
+    font-weight: bold;
+    background: white;
     padding: 0.8rem;
-    color: white;
+    color: black;
     width: 5rem;
     height: 2.5rem;
-    text-align:center;
+    text-align: center;
     border-radius: 0.5rem;
+    border: solid 0.15rem !important; 
     box-shadow: 0 5px 5px 0 rgba(0,0,0,0.14);
 }
 
-.btnAction-id {
-    background: #5badff;
-    padding: 0.8rem;
+.btnAction:hover {
+    background: black;
     color: white;
+    font-weight: bold;
+}
+
+.btnAction-id:hover {
+    background: black;
+    color: white;
+    font-weight: bold;
+}
+
+.btnAction-id {
+    background: white;
+    font-family: Cambria;
+    font-weight: bold;
+    padding: 0.8rem;
+    color: black;
     width: 8rem;
     height: 2.5rem;
     text-align: center;
     border-radius: 0.5rem;
+    border: solid 0.15rem !important;
     box-shadow: 0 5px 5px 0 rgba(0,0,0,0.14);
 }
 
@@ -105,8 +130,9 @@
 
 .segment {
     border-radius: 0.85rem;
-    background: #339CFF;
-    color: white;
+    border: solid 0.15rem !important;
+    background: white;
+    color: black;
     margin: 1rem;
     box-shadow: 0 20px 20px 0 rgba(0,0,0,0.18);
 }
@@ -124,8 +150,9 @@
 
 .segment-size {
     border-radius: 0.85rem;
-    background: #339CFF;
-    color: white;
+    border: solid 0.15rem !important;
+    background: white;
+    color: black;
     margin: 1rem;
     box-shadow: 0 20px 20px 0 rgba(0,0,0,0.18);
     padding: 5rem;
@@ -156,7 +183,7 @@
     height: 2rem;
     text-align: center;
     font-size: 0.85rem;
-    font-family: Georgia;
+    font-family: Cambria;
 }
 
 .rows-gv {
@@ -174,4 +201,12 @@
     color: #fff;
     text-align: left;
     font-weight: bold;
+}
+
+.info-box {
+    text-align: left;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: solid 0.15rem !important;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.14);
 }

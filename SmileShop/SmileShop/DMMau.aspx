@@ -4,7 +4,7 @@
     <div class="segment-size">
         <a class="btn" href="/">Quay lại</a>
         <div style="text-align: center !important;">
-            <h1 style="color: white; font-size: 3rem;">DANH MỤC MÀU</h1>
+            <h1 style="color: black; font-size: 3rem; font-family: Cambria">DANH MỤC MÀU</h1>
             <div>
                 <asp:HiddenField ID="hfMauID" runat="server" />
                 <table style="text-align:center !important">
