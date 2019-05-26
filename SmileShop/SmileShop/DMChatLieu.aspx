@@ -49,7 +49,7 @@
                     <asp:BoundField DataField="TenChatLieu" HeaderText="Tên ChatLieu" SortExpression="TenChatLieu"/>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("ChatLieuID") %>' OnClick="btnDelete_Click" >Delete</asp:LinkButton>
+                            <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("ChatLieuID") %>' OnClientClick="return confirm('Bạn có muốn xóa dòng này?');" OnClick="btnDelete_Click" >Delete</asp:LinkButton>
                             <asp:LinkButton ID="btnEdit" runat="server" CommandArgument='<%# Eval("ChatLieuID") + "," + Eval("TenChatLieu") %>' OnClick="btnEdit_Click">Edit</asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>

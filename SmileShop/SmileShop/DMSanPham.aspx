@@ -138,15 +138,20 @@
         <br />
         <div class="gv-align">
             <asp:GridView ID="gvSanPham" runat="server" 
-            AutoGenerateColumns="False" DataKeyNames="MaSP" onselectedindexchanging="gvSanPham_SelectedIndexChanging"
-            CssClass="segment-gv" HeaderStyle-CssClass="header-gv" RowStyle-CssClass="rows-gv" AutoGenerateSelectButton="True">
+            AutoGenerateColumns="False" DataKeyNames="MaSP"
+            CssClass="segment-gv" HeaderStyle-CssClass="header-gv" RowStyle-CssClass="rows-gv">
                 <Columns>
                     <asp:BoundField DataField="MaSP" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="MaSP"/>
                     <asp:BoundField DataField="TenSP" HeaderText="Tên SP" SortExpression="TenSP"/>
                     <asp:BoundField DataField="MauID" HeaderText="Màu" InsertVisible="False" ReadOnly="True" SortExpression="MauID"/>
                     <asp:BoundField DataField="SizeID" HeaderText="Size" SortExpression="SizeID"/>
                     <asp:BoundField DataField="ChatLieuID" HeaderText="Chất liệu" InsertVisible="False" ReadOnly="True" SortExpression="ChatLieuID"/>
-                    <asp:BoundField DataField="AnhSP" HeaderText="Ảnh minh họa" SortExpression="AnhSP"/>
+                    <asp:TemplateField HeaderText="Ảnh minh họa" SortExpression="AnhSP">
+                        <ItemTemplate>
+                            <asp:Image ID="imgSP" runat="server" Width="100px" Height="100px" 
+                                ImageUrl='<%# "~/assets/SanPham/" + Eval("AnhSP").ToString() %>'/>
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:BoundField DataField="SoLuongSP" HeaderText="Số lượng" InsertVisible="False" ReadOnly="True" SortExpression="SoLuongSP"/>
                     <asp:BoundField DataField="GiaSP" HeaderText="Giá bán" SortExpression="GiaSP"/>
                     <asp:BoundField DataField="MoTaSP" HeaderText="Mô tả" InsertVisible="False" ReadOnly="True" SortExpression="MoTaSP"/>
@@ -154,12 +159,16 @@
                     <asp:BoundField DataField="NgayHuy" HeaderText="Ngày hủy" SortExpression="NgayHuy"/>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("MaSP") %>' OnClick="btnDelete_Click" >Delete</asp:LinkButton>
+                            <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("MaSP") %>' OnClientClick="return confirm('Bạn có muốn xóa dòng này?');" OnClick="btnDelete_Click" >Delete</asp:LinkButton>
                             <asp:LinkButton ID="btnEdit" runat="server" CommandArgument='<%# Eval("MaSP") + "," + Eval("TenSP") + "," + Eval("MauID") + "," + Eval("SizeID") + "," + Eval("ChatLieuID")
                                     + "," + Eval("AnhSP") + "," + Eval("SoLuongSP") + "," + Eval("GiaSP") + "," + Eval("MoTaSP") + "," + Eval("NgayTao") + "," + Eval("NgayHuy")%>' OnClick="btnEdit_Click">Edit</asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
+
+<HeaderStyle CssClass="header-gv"></HeaderStyle>
+
+<RowStyle CssClass="rows-gv"></RowStyle>
             </asp:GridView>
         </div>
     </div>

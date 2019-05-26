@@ -17,7 +17,7 @@ namespace SmileShop.Database
         /// Phương thức xóa sản phẩm theo ID
         /// </summary>
         /// <param name="masp">Mã sản phẩm cần xóa</param>
-        public static void Sanpham_Delete(string masp)
+        public static void Sanpham_Delete(int masp)
         {
             OleDbCommand cmd = new OleDbCommand("sanpham_delete");
             cmd.CommandType = CommandType.StoredProcedure;
@@ -90,7 +90,7 @@ namespace SmileShop.Database
         /// <param name="ngaytao"></param>
         /// <param name="ngayhuy"></param>
         public static void Sanpham_Update(
-            string masp,
+            int masp,
             string tensp,
             int mauID,
             int sizeID,

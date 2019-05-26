@@ -13,14 +13,10 @@ using System.Web.UI.WebControls;
 public partial class DMSanPham : System.Web.UI.Page
 {
     string connString = ConfigurationManager.AppSettings["ConnectionString"];
-    string id = ""; //lấy id của danh mục cần chỉnh (size, màu, chất liệu)
     protected void Page_Load(object sender, EventArgs e)
     {
         SmileShop.Database.SqlDatabase.ConnectionString = connString;
-
-        if (Request.QueryString["id"] != null)
-            id = Request.QueryString["id"];
-        //btnSearch.Text = "Search by ID";
+        
         if (!IsPostBack)
         {
             ShowData();
@@ -155,7 +151,16 @@ public partial class DMSanPham : System.Web.UI.Page
     {
         bool res = false;
         try
-        {
+        {            
+            int mauID = Convert.ToInt32(ddlMau.SelectedValue);
+            int sizeID = Convert.ToInt32(ddlSize.SelectedValue);
+            int chatlieuID = Convert.ToInt32(ddlChatLieu.SelectedValue);
+
+            string ngaytao = tbNgayTao.Text;
+            string ngayhuy = tbNgayHuy.Text;
+            DateTime dtTao = DateTime.ParseExact(ngaytao, "MM/dd/yyyy hh:mm:ss tt", null);
+            DateTime dtHuy = DateTime.ParseExact(ngayhuy, "MM/dd/yyyy hh:mm:ss tt", null);
+
             if (btnSave.Text == "Save")
             {
                 if (fuHinh.FileContent.Length > 0)
@@ -163,20 +168,27 @@ public partial class DMSanPham : System.Web.UI.Page
                     if (fuHinh.FileName.EndsWith(".png") || fuHinh.FileName.EndsWith(".gif")
                         || fuHinh.FileName.EndsWith(".jpg") || fuHinh.FileName.EndsWith(".jpeg"))
                     {
-                        fuHinh.SaveAs(Server.MapPath("photos/SanPham/") + fuHinh.FileName);
+                        fuHinh.SaveAs(Server.MapPath("assets/SanPham/") + fuHinh.FileName);
                     }
                 }
-                int mauID = Convert.ToInt32(ddlMau.SelectedValue);
-                int sizeID = Convert.ToInt32(ddlSize.SelectedValue);
-                int chatlieuID = Convert.ToInt32(ddlChatLieu.SelectedValue);
-                SanPham.Sanpham_Insert(tbTenSanPham.Text, mauID, sizeID, chatlieuID, fuHinh.FileName,
-                    Convert.ToInt32(tbSoLuong.Text), Convert.ToInt32(tbGiaBan.Text), taMoTa.InnerText, 
-                    Convert.ToDateTime(tbNgayTao.Text), Convert.ToDateTime(tbNgayHuy.Text), 0);
+                SanPham.Sanpham_Insert(tbTenSanPham.Text, mauID, sizeID, chatlieuID, fuHinh.FileName.ToString(),
+                    Convert.ToInt32(tbSoLuong.Text), Convert.ToInt32(tbGiaBan.Text), taMoTa.InnerText,
+                    dtTao, dtHuy, 0);
+                res = true;
             }
-            else
-                //Mau.Mau_Update(Convert.ToInt32(hfMauID.Value), tbTenMau.Text);
+            else if (btnSave.Text == "Update")
+            {
+                string imgFileName = "";
+                if (fuHinh.FileName.ToString() != "" || fuHinh.FileContent.Length > 0)
+                    imgFileName = fuHinh.FileName.ToString();
+                else
+                    imgFileName = "";
 
-            res = true;            
+                SanPham.Sanpham_Update(Convert.ToInt32(hfSanPhamID.Value), tbTenSanPham.Text, mauID, sizeID, chatlieuID, imgFileName,
+                    Convert.ToInt32(tbSoLuong.Text), Convert.ToInt32(tbGiaBan.Text), taMoTa.InnerText,
+                    dtTao, dtHuy);
+                res = true;
+            }                        
         }
         catch (Exception ex)
         {
@@ -206,12 +218,12 @@ public partial class DMSanPham : System.Web.UI.Page
     }
 
     protected void btnDelete_Click(object sender, EventArgs e)
-    {
+    {        
         int id = Convert.ToInt32((sender as LinkButton).CommandArgument);
         bool res = false;
         try
         {
-            //SanPham.Sanpham_Delete(id);
+            SanPham.Sanpham_Delete(id);
             res = true;
             Clear();
         }
@@ -244,6 +256,7 @@ public partial class DMSanPham : System.Web.UI.Page
         ddlChatLieu.SelectedIndex = ddlChatLieu.Items.IndexOf(ddlChatLieu.Items.FindByText(str[2]));
 
         //fuHinh.SaveAs(Server.MapPath("photos/SanPham/") + a[5]);
+        //fuHinh.FileContent.
         tbSoLuong.Text = a[6];
         tbGiaBan.Text = a[7];
 
@@ -255,13 +268,6 @@ public partial class DMSanPham : System.Web.UI.Page
         tbNgayHuy.Text = a[a.Length - 1];
         tbNgayTao.Text = a[a.Length - 2];
         btnSave.Text = "Update";
-    }
-
-    protected void gvSanPham_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-    {
-        GridViewRow row = gvSanPham.Rows[e.NewSelectedIndex]; ;
-
-        tbTenSanPham.Text = row.Cells[2].Text;
     }
 
     public string[] GetTenSizeMauCL(int mauID, int sizeID, int chatlieuID)
