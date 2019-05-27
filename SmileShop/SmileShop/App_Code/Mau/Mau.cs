@@ -92,5 +92,21 @@ namespace SmileShop.Database
             return SqlDatabase.GetData(cmd);
         }
         #endregion
+
+        # region Phương thức trả về bảng chứa các màu tìm theo từ khóa
+        /// <summary>
+        /// Phương thức trả về bảng chứa các màu tìm theo từ khóa
+        /// </summary>
+        /// <param name="str">từ khóa muốn tìm</param>
+        /// <returns></returns>
+        public static DataTable Thongtin_Mau_ByTuKhoa(string str)
+        {
+            OleDbCommand cmd = new OleDbCommand("thongtin_mau_by_tukhoa");
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TuKhoa", str);
+
+            return SqlDatabase.GetData(cmd);
+        }
+        #endregion
     }
 }

@@ -5,14 +5,20 @@ using System.Configuration;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class DMSanPham : System.Web.UI.Page
 {
     string connString = ConfigurationManager.AppSettings["ConnectionString"];
+    string ltrHtmlImgHead = "<img style='width:100px; height=100px;' src='/assets/SanPham/";
+    string ltrHtmlImgTail = @"'/>";
+    string imgFileName = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         SmileShop.Database.SqlDatabase.ConnectionString = connString;
@@ -115,25 +121,25 @@ public partial class DMSanPham : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        //string str = tbTenMau.Text;
-        //if (str == "") lbError.Text = "Bạn chưa nhập dữ liệu để tìm.";
-        //else
-        //{
-        //    try
-        //    {
-        //        gvMau.DataSource = null;
-        //        DataTable dt = new DataTable();
-        //        dt = SmileShop.Database.Mau.Thongtin_mau_ByID(Convert.ToInt32(str));
-        //        if (dt.Rows.Count == 0) lbError.Text = "Not Found.";
-        //        gvMau.DataSource = dt;
-        //        gvMau.DataBind();
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        Console.WriteLine(ex.Message);
-        //        lbError.Text = "There's something wrong.";
-        //    }
-        //}
+        if (tbTenSanPham.Text == "")
+            lbError.Text = "Bạn chưa nhập dữ liệu để tìm.";
+        else
+        {
+            try
+            {
+                gvSanPham.DataSource = null;
+                DataTable dt = new DataTable();
+                dt = SmileShop.Database.SanPham.Thongtin_Sanpham_ByTuKhoa(tbTenSanPham.Text);
+                if (dt.Rows.Count == 0) lbError.Text = "Not Found.";
+                gvSanPham.DataSource = dt;
+                gvSanPham.DataBind();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                lbError.Text = "There's something wrong.";
+            }
+        }
     }
 
     public void Clear()
@@ -142,9 +148,10 @@ public partial class DMSanPham : System.Web.UI.Page
         tbSoLuong.Text = "";
         taMoTa.InnerText = "";
         tbGiaBan.Text = "";
-        tbNgayTao.Text = DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
-        tbNgayHuy.Text = DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss tt");
+        tbNgayTao.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+        tbNgayHuy.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
         lbSuccess.Text = lbError.Text = "";
+        ltrHinh.Text = "";
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -158,8 +165,8 @@ public partial class DMSanPham : System.Web.UI.Page
 
             string ngaytao = tbNgayTao.Text;
             string ngayhuy = tbNgayHuy.Text;
-            DateTime dtTao = DateTime.ParseExact(ngaytao, "MM/dd/yyyy hh:mm:ss tt", null);
-            DateTime dtHuy = DateTime.ParseExact(ngayhuy, "MM/dd/yyyy hh:mm:ss tt", null);
+            DateTime dtTao = DateTime.Parse(ngaytao);
+            DateTime dtHuy = DateTime.Parse(ngayhuy);
 
             if (btnSave.Text == "Save")
             {
@@ -170,7 +177,8 @@ public partial class DMSanPham : System.Web.UI.Page
                     {
                         fuHinh.SaveAs(Server.MapPath("assets/SanPham/") + fuHinh.FileName);
                     }
-                }
+                }                
+
                 SanPham.Sanpham_Insert(tbTenSanPham.Text, mauID, sizeID, chatlieuID, fuHinh.FileName.ToString(),
                     Convert.ToInt32(tbSoLuong.Text), Convert.ToInt32(tbGiaBan.Text), taMoTa.InnerText,
                     dtTao, dtHuy, 0);
@@ -178,15 +186,28 @@ public partial class DMSanPham : System.Web.UI.Page
             }
             else if (btnSave.Text == "Update")
             {
-                string imgFileName = "";
-                if (fuHinh.FileName.ToString() != "" || fuHinh.FileContent.Length > 0)
-                    imgFileName = fuHinh.FileName.ToString();
-                else
-                    imgFileName = "";
+                if (fuHinh.FileContent.Length > 0)
+                {
+                    if (fuHinh.FileName.EndsWith(".png") || fuHinh.FileName.EndsWith(".gif")
+                        || fuHinh.FileName.EndsWith(".jpg") || fuHinh.FileName.EndsWith(".jpeg"))
+                    {
+                        fuHinh.SaveAs(Server.MapPath("assets/SanPham/") + fuHinh.FileName);
+                    }
+                    ltrHinh.Text = "";
 
-                SanPham.Sanpham_Update(Convert.ToInt32(hfSanPhamID.Value), tbTenSanPham.Text, mauID, sizeID, chatlieuID, imgFileName,
+                    SanPham.Sanpham_Update(Convert.ToInt32(hfSanPhamID.Value), tbTenSanPham.Text, mauID, sizeID, chatlieuID, fuHinh.FileName.ToString(),
                     Convert.ToInt32(tbSoLuong.Text), Convert.ToInt32(tbGiaBan.Text), taMoTa.InnerText,
                     dtTao, dtHuy);
+                }
+                else
+                {
+                    string temp = ltrHinh.Text.Replace(ltrHtmlImgHead, "");
+                    imgFileName = temp.Replace(ltrHtmlImgTail, "");
+                    SanPham.Sanpham_Update(Convert.ToInt32(hfSanPhamID.Value), tbTenSanPham.Text, mauID, sizeID, chatlieuID, imgFileName.Trim(),
+                    Convert.ToInt32(tbSoLuong.Text), Convert.ToInt32(tbGiaBan.Text), taMoTa.InnerText,
+                    dtTao, dtHuy);
+                }
+                
                 res = true;
             }                        
         }
@@ -202,7 +223,6 @@ public partial class DMSanPham : System.Web.UI.Page
                 lbSuccess.Text = "Saved successfully!!";
             else if (btnSave.Text == "Update")
                 lbSuccess.Text = "Updated successfully!!";
-            Clear();
         }
         else
             lbError.Text = "There's something wrong. We cannot save your work";
@@ -255,8 +275,8 @@ public partial class DMSanPham : System.Web.UI.Page
         ddlSize.SelectedIndex = ddlSize.Items.IndexOf(ddlSize.Items.FindByText(str[1]));
         ddlChatLieu.SelectedIndex = ddlChatLieu.Items.IndexOf(ddlChatLieu.Items.FindByText(str[2]));
 
-        //fuHinh.SaveAs(Server.MapPath("photos/SanPham/") + a[5]);
-        //fuHinh.FileContent.
+        ltrHinh.Text = ltrHtmlImgHead + a[5] + ltrHtmlImgTail;
+        
         tbSoLuong.Text = a[6];
         tbGiaBan.Text = a[7];
 
@@ -265,6 +285,7 @@ public partial class DMSanPham : System.Web.UI.Page
             description += a[i];
 
         taMoTa.InnerText = description;
+
         tbNgayHuy.Text = a[a.Length - 1];
         tbNgayTao.Text = a[a.Length - 2];
         btnSave.Text = "Update";

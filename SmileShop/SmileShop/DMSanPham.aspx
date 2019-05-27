@@ -27,7 +27,8 @@
                                             <asp:Label ID="lbHinh" CssClass="lb" runat="server" Text="Hình ảnh"></asp:Label>
                                             <asp:HiddenField ID="hfHinh" runat="server" />
                                         </td>
-                                        <td colspan="2" style="padding-top: 0.5rem;">
+                                        <td colspan="2" style="padding-top: 0.5rem;">                                            
+                                            <asp:Literal ID="ltrHinh" runat="server"></asp:Literal>
                                             <asp:FileUpload ID="fuHinh" runat="server" />
                                         </td>
                                     </tr>
@@ -155,20 +156,16 @@
                     <asp:BoundField DataField="SoLuongSP" HeaderText="Số lượng" InsertVisible="False" ReadOnly="True" SortExpression="SoLuongSP"/>
                     <asp:BoundField DataField="GiaSP" HeaderText="Giá bán" SortExpression="GiaSP"/>
                     <asp:BoundField DataField="MoTaSP" HeaderText="Mô tả" InsertVisible="False" ReadOnly="True" SortExpression="MoTaSP"/>
-                    <asp:BoundField DataField="NgayTao" HeaderText="Ngày tạo" SortExpression="NgayTao"/>
-                    <asp:BoundField DataField="NgayHuy" HeaderText="Ngày hủy" SortExpression="NgayHuy"/>
+                    <asp:BoundField DataField="NgayTao" HeaderText="Ngày tạo" SortExpression="NgayTao" DataFormatString="{0:dd/MM/yyyy hh:mm:ss tt}"/>
+                    <asp:BoundField DataField="NgayHuy" HeaderText="Ngày hủy" SortExpression="NgayHuy" DataFormatString="{0:dd/MM/yyyy hh:mm:ss tt}"/>
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton ID="btnDelete" runat="server" CommandArgument='<%# Eval("MaSP") %>' OnClientClick="return confirm('Bạn có muốn xóa dòng này?');" OnClick="btnDelete_Click" >Delete</asp:LinkButton>
                             <asp:LinkButton ID="btnEdit" runat="server" CommandArgument='<%# Eval("MaSP") + "," + Eval("TenSP") + "," + Eval("MauID") + "," + Eval("SizeID") + "," + Eval("ChatLieuID")
-                                    + "," + Eval("AnhSP") + "," + Eval("SoLuongSP") + "," + Eval("GiaSP") + "," + Eval("MoTaSP") + "," + Eval("NgayTao") + "," + Eval("NgayHuy")%>' OnClick="btnEdit_Click">Edit</asp:LinkButton>
+                                    + "," + Eval("AnhSP") + "," + Eval("SoLuongSP") + "," + Eval("GiaSP") + "," + Eval("MoTaSP") + "," + Eval("NgayTao", "{0:dd/MM/yyyy hh:mm:ss tt}") + "," + Eval("NgayHuy", "{0:dd/MM/yyyy hh:mm:ss tt}")%>' OnClick="btnEdit_Click">Edit</asp:LinkButton>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
-
-<HeaderStyle CssClass="header-gv"></HeaderStyle>
-
-<RowStyle CssClass="rows-gv"></RowStyle>
             </asp:GridView>
         </div>
     </div>
