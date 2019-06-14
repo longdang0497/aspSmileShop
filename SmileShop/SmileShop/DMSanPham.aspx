@@ -20,6 +20,8 @@
                                             <asp:TextBox ID="tbTenSanPham" CssClass="tb" runat="server" style="margin-left: 0px"></asp:TextBox>
                                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" 
                                                 ControlToValidate="tbTenSanPham" Display="Dynamic" SetFocusOnError="true" ForeColor="Red"></asp:RequiredFieldValidator>--%>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbTenSanPham" ErrorMessage="Khong duoc bo trong"></asp:RequiredFieldValidator>
+                                            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="tbTenSanPham" ErrorMessage="phai nhap string"></asp:CompareValidator>
                                         </td>
                                     </tr>                          
                                     <tr>
