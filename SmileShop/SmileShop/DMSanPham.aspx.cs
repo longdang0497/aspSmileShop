@@ -148,8 +148,8 @@ public partial class DMSanPham : System.Web.UI.Page
         tbSoLuong.Text = "";
         taMoTa.InnerText = "";
         tbGiaBan.Text = "";
-        tbNgayTao.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
-        tbNgayHuy.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+        //tbNgayTao.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
+        //tbNgayHuy.Text = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss tt");
         lbSuccess.Text = lbError.Text = "";
         ltrHinh.Text = "";
     }
@@ -163,10 +163,10 @@ public partial class DMSanPham : System.Web.UI.Page
             int sizeID = Convert.ToInt32(ddlSize.SelectedValue);
             int chatlieuID = Convert.ToInt32(ddlChatLieu.SelectedValue);
 
-            string ngaytao = tbNgayTao.Text;
-            string ngayhuy = tbNgayHuy.Text;
-            DateTime dtTao = DateTime.Parse(ngaytao);
-            DateTime dtHuy = DateTime.Parse(ngayhuy);
+            //string ngaytao = tbNgayTao.Text;
+            //string ngayhuy = tbNgayHuy.Text;
+            DateTime dtTao = DateTime.Now;
+            DateTime dtHuy = DateTime.Now;
 
             if (btnSave.Text == "Save")
             {
@@ -286,8 +286,8 @@ public partial class DMSanPham : System.Web.UI.Page
 
         taMoTa.InnerText = description;
 
-        tbNgayHuy.Text = a[a.Length - 1];
-        tbNgayTao.Text = a[a.Length - 2];
+        //tbNgayHuy.Text = a[a.Length - 1];
+        //tbNgayTao.Text = a[a.Length - 2];
         btnSave.Text = "Update";
     }
 

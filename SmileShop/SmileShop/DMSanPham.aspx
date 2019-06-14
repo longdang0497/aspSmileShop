@@ -21,7 +21,6 @@
                                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" 
                                                 ControlToValidate="tbTenSanPham" Display="Dynamic" SetFocusOnError="true" ForeColor="Red"></asp:RequiredFieldValidator>--%>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="tbTenSanPham" ErrorMessage="Khong duoc bo trong"></asp:RequiredFieldValidator>
-                                            <asp:CompareValidator ID="CompareValidator1" runat="server" ControlToValidate="tbTenSanPham" ErrorMessage="phai nhap string"></asp:CompareValidator>
                                         </td>
                                     </tr>                          
                                     <tr>
@@ -69,23 +68,7 @@
                         </td>
                         <td>
                             <div>
-                                <table style="text-align: left;">  
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="lbNgayTao" CssClass="lb" runat="server" Text="Ngày tạo"></asp:Label>
-                                        </td>
-                                        <td colspan="2" style="padding-top: 0.5rem;">
-                                            <asp:TextBox ID="tbNgayTao" CssClass="tb" runat="server"></asp:TextBox>                       
-                                        </td>                        
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <asp:Label ID="lbNgayHuy" CssClass="lb" runat="server" Text="Ngày hủy"></asp:Label>
-                                        </td>
-                                        <td colspan="2" style="padding-top: 0.5rem;">
-                                            <asp:TextBox ID="tbNgayHuy" CssClass="tb" runat="server"></asp:TextBox>                       
-                                        </td>                        
-                                    </tr>
+                                <table style="text-align: left;"> 
                                     <tr>
                                         <td>
                                             <asp:Label ID="lbMau" CssClass="lb" runat="server" Text="Chọn màu"></asp:Label>
