@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" AutoEventWireup="true" CodeFile="DMChatLieu.aspx.cs" Inherits="DMChatLieu" %>
 
 <asp:Content ID="ctChatLieu" ContentPlaceHolderID="phHome" Runat="Server">
+    <asp:Label ID="lbException" CssClass="lb" runat="server" Text=""></asp:Label>
     <div class="segment-size">
         <a class="btn" href="/">Quay lại</a>
         <div style="text-align: center !important;">

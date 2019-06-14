@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -19,11 +20,15 @@ namespace SmileShop.Database
         /// <param name="id">Mã chất liệu cần xóa</param>
         public static void ChatLieu_Delete(int id)
         {
-            OleDbCommand cmd = new OleDbCommand("chatlieu_delete");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@chatlieuid", id);
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("chatlieu_delete");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@chatlieuid", id);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            } catch (SqlException) { }
+            catch(Exception) { }
         }
         #endregion
 
@@ -34,14 +39,19 @@ namespace SmileShop.Database
         /// <param name="tenChatLieu"></param>
         /// <param name="ret"></param>
         public static void ChatLieu_Insert(string tenChatLieu, int ret = 0)
-        {
-            OleDbCommand cmd = new OleDbCommand("chatlieu_insert");
-            cmd.CommandType = CommandType.StoredProcedure;
+        {            
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("chatlieu_insert");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@tenChatLieu", tenChatLieu);
-            cmd.Parameters.AddWithValue("@ret", ret);
+                cmd.Parameters.AddWithValue("@tenChatLieu", tenChatLieu);
+                cmd.Parameters.AddWithValue("@ret", ret);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -52,14 +62,19 @@ namespace SmileShop.Database
         /// <param name="ChatLieuid"></param>
         /// <param name="tenChatLieu"></param>
         public static void ChatLieu_Update(int ChatLieuid, string tenChatLieu)
-        {
-            OleDbCommand cmd = new OleDbCommand("chatlieu_update");
-            cmd.CommandType = CommandType.StoredProcedure;
+        {            
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("chatlieu_update");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@chatlieuid", ChatLieuid);
-            cmd.Parameters.AddWithValue("@tenchatlieu", tenChatLieu);
+                cmd.Parameters.AddWithValue("@chatlieuid", ChatLieuid);
+                cmd.Parameters.AddWithValue("@tenchatlieu", tenChatLieu);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -70,8 +85,14 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_ChatLieu()
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_chatlieu");
-            cmd.CommandType = CommandType.StoredProcedure;
+            OleDbCommand cmd = null;
+            try
+            {
+                cmd = new OleDbCommand("thongtin_chatlieu");
+                cmd.CommandType = CommandType.StoredProcedure;                
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
@@ -85,9 +106,15 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_ChatLieu_ByID(int id)
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_ChatLieu_by_id");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@chatlieuid", id);
+            OleDbCommand cmd = null;
+            try
+            {
+                cmd = new OleDbCommand("thongtin_ChatLieu_by_id");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@chatlieuid", id);                
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
@@ -101,9 +128,15 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_ChatLieu_ByTuKhoa(string str)
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_chatlieu_by_tukhoa");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@TuKhoa", str);
+            OleDbCommand cmd = null;
+            try
+            {
+                cmd = new OleDbCommand("thongtin_chatlieu_by_tukhoa");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@TuKhoa", str);               
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }

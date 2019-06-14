@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.OleDb;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace SmileShop.Database
 {
@@ -19,11 +20,16 @@ namespace SmileShop.Database
         /// <param name="masp">Mã sản phẩm cần xóa</param>
         public static void Sanpham_Delete(int masp)
         {
-            OleDbCommand cmd = new OleDbCommand("sanpham_delete");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@masp", masp);
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("sanpham_delete");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@masp", masp);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -55,22 +61,27 @@ namespace SmileShop.Database
             DateTime ngayhuy,
             int ret)
         {
-            OleDbCommand cmd = new OleDbCommand("sanpham_insert");
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("sanpham_insert");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@tensp", tensp);
-            cmd.Parameters.AddWithValue("@mauID", mauID);
-            cmd.Parameters.AddWithValue("@sizeID", sizeID);
-            cmd.Parameters.AddWithValue("@chatieuID", chatieuID);
-            cmd.Parameters.AddWithValue("@anhsanpham", anhsanpham);
-            cmd.Parameters.AddWithValue("@soluongsp", soluongsp);
-            cmd.Parameters.AddWithValue("@giasp", giasp);
-            cmd.Parameters.AddWithValue("@motasp", motasp);
-            cmd.Parameters.AddWithValue("@ngaytao", ngaytao);
-            cmd.Parameters.AddWithValue("@ngayhuy", ngayhuy);
-            cmd.Parameters.AddWithValue("@ret", ret);
+                cmd.Parameters.AddWithValue("@tensp", tensp);
+                cmd.Parameters.AddWithValue("@mauID", mauID);
+                cmd.Parameters.AddWithValue("@sizeID", sizeID);
+                cmd.Parameters.AddWithValue("@chatieuID", chatieuID);
+                cmd.Parameters.AddWithValue("@anhsanpham", anhsanpham);
+                cmd.Parameters.AddWithValue("@soluongsp", soluongsp);
+                cmd.Parameters.AddWithValue("@giasp", giasp);
+                cmd.Parameters.AddWithValue("@motasp", motasp);
+                cmd.Parameters.AddWithValue("@ngaytao", ngaytao);
+                cmd.Parameters.AddWithValue("@ngayhuy", ngayhuy);
+                cmd.Parameters.AddWithValue("@ret", ret);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -102,22 +113,27 @@ namespace SmileShop.Database
             DateTime ngaytao,
             DateTime ngayhuy)
         {
-            OleDbCommand cmd = new OleDbCommand("sanpham_update");
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("sanpham_update");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@masp", masp);
-            cmd.Parameters.AddWithValue("@tensp", tensp);
-            cmd.Parameters.AddWithValue("@mauID", mauID);
-            cmd.Parameters.AddWithValue("@sizeID", sizeID);
-            cmd.Parameters.AddWithValue("@chatieuID", chatieuID);
-            cmd.Parameters.AddWithValue("@anhsanpham", anhsanpham);
-            cmd.Parameters.AddWithValue("@soluongsp", soluongsp);
-            cmd.Parameters.AddWithValue("@giasp", giasp);
-            cmd.Parameters.AddWithValue("@motasp", motasp);
-            cmd.Parameters.AddWithValue("@ngaytao", ngaytao);
-            cmd.Parameters.AddWithValue("@ngayhuy", ngayhuy);
+                cmd.Parameters.AddWithValue("@masp", masp);
+                cmd.Parameters.AddWithValue("@tensp", tensp);
+                cmd.Parameters.AddWithValue("@mauID", mauID);
+                cmd.Parameters.AddWithValue("@sizeID", sizeID);
+                cmd.Parameters.AddWithValue("@chatieuID", chatieuID);
+                cmd.Parameters.AddWithValue("@anhsanpham", anhsanpham);
+                cmd.Parameters.AddWithValue("@soluongsp", soluongsp);
+                cmd.Parameters.AddWithValue("@giasp", giasp);
+                cmd.Parameters.AddWithValue("@motasp", motasp);
+                cmd.Parameters.AddWithValue("@ngaytao", ngaytao);
+                cmd.Parameters.AddWithValue("@ngayhuy", ngayhuy);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -128,8 +144,14 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_Sanpham()
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_sanpham");
-            cmd.CommandType = CommandType.StoredProcedure;
+            OleDbCommand cmd = null;
+            try
+            {
+                cmd = new OleDbCommand("thongtin_sanpham");
+                cmd.CommandType = CommandType.StoredProcedure;
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
@@ -143,9 +165,16 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_Sanpham_ByID(string masp)
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_sanpham_by_id");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@MaSP", masp);
+            OleDbCommand cmd = null;
+
+            try
+            {
+                cmd = new OleDbCommand("thongtin_sanpham_by_id");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@MaSP", masp);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
@@ -159,9 +188,15 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_Sanpham_ByTuKhoa(string str)
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_sanpham_by_tukhoa");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@TuKhoa", str);
+            OleDbCommand cmd = null;
+            try
+            {
+                cmd = new OleDbCommand("thongtin_sanpham_by_tukhoa");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@TuKhoa", str);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }

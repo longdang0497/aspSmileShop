@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.OleDb;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace SmileShop.Database
 {
@@ -18,12 +19,17 @@ namespace SmileShop.Database
         /// </summary>
         /// <param name="id">Mã màu cần xóa</param>
         public static void Mau_Delete(int id)
-        {
-            OleDbCommand cmd = new OleDbCommand("mau_delete");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@mauid", id);
+        {            
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("mau_delete");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mauid", id);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -35,13 +41,18 @@ namespace SmileShop.Database
         /// <param name="ret"></param>
         public static void Mau_Insert(string tenmau, int ret = 0)
         {
-            OleDbCommand cmd = new OleDbCommand("mau_insert");
-            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("mau_insert");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@tenmau", tenmau);
-            cmd.Parameters.AddWithValue("@ret", ret);
+                cmd.Parameters.AddWithValue("@tenmau", tenmau);
+                cmd.Parameters.AddWithValue("@ret", ret);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -53,13 +64,19 @@ namespace SmileShop.Database
         /// <param name="tenmau"></param>
         public static void Mau_Update(int mauid, string tenmau)
         {
-            OleDbCommand cmd = new OleDbCommand("mau_update");
-            cmd.CommandType = CommandType.StoredProcedure;
+            
+            try
+            {
+                OleDbCommand cmd = new OleDbCommand("mau_update");
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@mauid", mauid);
-            cmd.Parameters.AddWithValue("@tenmau", tenmau);
+                cmd.Parameters.AddWithValue("@mauid", mauid);
+                cmd.Parameters.AddWithValue("@tenmau", tenmau);
 
-            SqlDatabase.ExecuteNoneQuery(cmd);
+                SqlDatabase.ExecuteNoneQuery(cmd);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
         }
         #endregion
 
@@ -70,8 +87,15 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_Mau()
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_mau");
-            cmd.CommandType = CommandType.StoredProcedure;
+            OleDbCommand cmd = null;
+
+            try
+            {
+                cmd = new OleDbCommand("thongtin_mau");
+                cmd.CommandType = CommandType.StoredProcedure;
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
@@ -85,9 +109,16 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_mau_ByID(int id)
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_mau_by_id");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@mauid", id);
+            OleDbCommand cmd = null;
+
+            try
+            {
+                cmd = new OleDbCommand("thongtin_mau_by_id");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@mauid", id);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
@@ -101,9 +132,15 @@ namespace SmileShop.Database
         /// <returns></returns>
         public static DataTable Thongtin_Mau_ByTuKhoa(string str)
         {
-            OleDbCommand cmd = new OleDbCommand("thongtin_mau_by_tukhoa");
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@TuKhoa", str);
+            OleDbCommand cmd = null;
+            try
+            {
+                cmd = new OleDbCommand("thongtin_mau_by_tukhoa");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@TuKhoa", str);
+            }
+            catch (SqlException) { }
+            catch (Exception) { }
 
             return SqlDatabase.GetData(cmd);
         }
