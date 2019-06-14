@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" AutoEventWireup="true" CodeFile="DMSize.aspx.cs" Inherits="DMSize" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" ValidateRequest="false" AutoEventWireup="true" CodeFile="DMSize.aspx.cs" Inherits="DMSize" %>
 
 <asp:Content ID="ctSize" ContentPlaceHolderID="phHome" Runat="Server">    
     <div class="segment-size">

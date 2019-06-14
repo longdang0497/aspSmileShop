@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" AutoEventWireup="true" CodeFile="DMMau.aspx.cs" Inherits="DMMau" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" ValidateRequest="false" AutoEventWireup="true" CodeFile="DMMau.aspx.cs" Inherits="DMMau" %>
 
 <asp:Content ID="ctMau" ContentPlaceHolderID="phHome" Runat="Server">
     <div class="segment-size">

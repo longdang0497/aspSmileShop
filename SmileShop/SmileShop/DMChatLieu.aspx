@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" AutoEventWireup="true" CodeFile="DMChatLieu.aspx.cs" Inherits="DMChatLieu" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Home.master" ValidateRequest="false" AutoEventWireup="true" CodeFile="DMChatLieu.aspx.cs" Inherits="DMChatLieu" %>
 
 <asp:Content ID="ctChatLieu" ContentPlaceHolderID="phHome" Runat="Server">
     <asp:Label ID="lbException" CssClass="lb" runat="server" Text=""></asp:Label>
